@@ -6,19 +6,19 @@ public class Routine extends ArrayList<Movement> {
     private String routineName;
     private String targetGroup;
     private String routineType;
-
+    ArrayList<Movement> routineList = new ArrayList<>();
     public Routine () {
         routineName = "New Routine";
         routineType = "Unknown";
         targetGroup = "";
-        ArrayList<Movement> routineList = new ArrayList<>();
+        routineList = new ArrayList<>();
     }
 
     public Routine (String name, String group, String type) {
         routineName = name;
         routineType = type;
         targetGroup = group;
-        ArrayList<Movement> routineList = new ArrayList<>();
+        routineList = new ArrayList<>();
     }
 
     public void setRoutineName(String name) {
@@ -40,5 +40,8 @@ public class Routine extends ArrayList<Movement> {
     public String getRoutineType() {
         return routineType;
     }
-    
+    public ArrayList<Movement> getRoutineList() {
+        return routineList;
+    }
+
 }
