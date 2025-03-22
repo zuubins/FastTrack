@@ -16,6 +16,19 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="709dp"
+        android:background="#525050"
+        android:contentDescription="@string/view_completed_workouts">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
@@ -25,55 +38,45 @@
         android:longClickable="false"
         android:minHeight="?attr/actionBarSize"
         android:nestedScrollingEnabled="false"
-        android:theme="?attr/actionBarTheme">
+        android:theme="?attr/actionBarTheme"
+        app:layout_anchor="@+id/scrollView2"
+        app:layout_anchorGravity="bottom|center">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#01FFFFFF"
+            android:contentDescription='@string/start_new_workout_text'
+            app:icon="@android:drawable/ic_input_add"
+            app:iconSize="40dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="#00FFFFFF"
+            android:contentDescription='@string/take_workout_split_quiz'
+            app:icon="@android:drawable/ic_menu_edit"
+            app:iconSize="35dp"
+            app:iconTint="#000000"
+            app:iconTintMode="src_in" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
+            android:layout_gravity="start"
             android:background="#009E8F52"
+            android:contentDescription="@string/return_to_home_screen"
             app:icon="@drawable/home_button_foreground"
             app:iconSize="40dp"
             app:iconTint="#000000" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="593dp"
-        android:background="#525050">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00FFFFFF"
-        app:icon="@android:drawable/ic_menu_edit"
-        app:iconSize="35dp"
-        app:iconTint="#000000"
-        app:iconTintMode="src_in"
-        app:layout_anchor="@+id/toolbar2"
-        app:layout_anchorGravity="end|center" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#01FFFFFF"
-        app:icon="@android:drawable/ic_input_add"
-        app:iconSize="40dp"
-        app:iconTint="#000000"
-        app:layout_anchor="@+id/toolbar2"
-        app:layout_anchorGravity="center" />
 
     <EditText
         android:id="@+id/editTextText"

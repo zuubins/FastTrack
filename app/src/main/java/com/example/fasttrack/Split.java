@@ -26,6 +26,14 @@ public class Split {
         return splitRoutines;
     }
 
+    public void addRoutine(Routine r) {
+        splitRoutines.add(r);
+    }
+
+    public void removeRoutine(Routine r) {
+        splitRoutines.remove(r);
+    }
+
 
 
 }

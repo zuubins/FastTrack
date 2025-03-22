@@ -5,7 +5,7 @@ import com.example.fasttrack.Routine;
 
 public class test1 {
     public static void Main(String[] args) {
-        Movement testMovement = new Movement();
+        Movement testMovement = new Movement("1");
         Routine testRoutine = new Routine();
         testRoutine.addMovement(testMovement);
 

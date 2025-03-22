@@ -6,9 +6,10 @@ public class Movement extends Object {
     private String movementName;
     private String movementType;
     private String movementTarget;
-    public Movement() {
+    private int[][][] moveSet;
+    public Movement(String name) {
         movementSets = 1;
-        movementName = "Unnamed Movement";
+        movementName = name;
         movementType = "Unknown";
         movementTarget = "";
     }
@@ -24,7 +25,9 @@ public class Movement extends Object {
     }
 
     public void addSet(int addition) {
+
         movementSets += addition;
+
     }
     public int getMovementSets() {
         return movementSets;
