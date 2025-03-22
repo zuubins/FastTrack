@@ -14,13 +14,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="211dp"
+        android:layout_height="200dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
