@@ -1,4 +1,4 @@
-package com.example.fasttrack.adts;
+package com.example.fasttrack;
 
 import java.util.ArrayList;
 
@@ -43,5 +43,27 @@ public class Routine extends ArrayList<Movement> {
     public ArrayList<Movement> getRoutineList() {
         return routineList;
     }
+
+    public void addMovement(Movement m) {
+        routineList.add(m);
+
+    }
+
+    public void removeMovement(int index) {
+        routineList.remove(index);
+
+    }
+
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append(this.getRoutineName() + "\n");
+        for( Movement movement: routineList) {
+            s.append(movement.getName());
+
+        }
+        return s.toString();
+    }
+
+
 
 }

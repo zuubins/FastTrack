@@ -1,4 +1,4 @@
-package com.example.fasttrack.adts;
+package com.example.fasttrack;
 
 public class Movement extends Object {
 

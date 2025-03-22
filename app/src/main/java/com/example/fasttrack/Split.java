@@ -1,4 +1,4 @@
-package com.example.fasttrack.adts;
+package com.example.fasttrack;
 
 import java.util.ArrayList;
 
@@ -15,11 +15,17 @@ public class Split {
         splitRoutines = new ArrayList<>();
     }
 
-    public Split(int days) {
+    public Split(int days, String name, String goal) {
+        splitGoal = goal;
+        splitName = name;
+        numberDays = days;
+        splitRoutines = new ArrayList<>();
 
     }
     public ArrayList<Routine> getSplitRoutines() {
         return splitRoutines;
     }
-    
+
+
+
 }
