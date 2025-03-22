@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="bottom|fill_vertical"
+    android:background="#00FFFFFF"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
@@ -14,8 +16,77 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="211dp"
-        android:layout_height="200dp" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#D5D3CF"
+        android:longClickable="false"
+        android:minHeight="?attr/actionBarSize"
+        android:nestedScrollingEnabled="false"
+        android:theme="?attr/actionBarTheme">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:background="#009E8F52"
+            app:icon="@drawable/home_button_foreground"
+            app:iconSize="40dp"
+            app:iconTint="#000000" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="593dp"
+        android:background="#525050">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        app:icon="@android:drawable/ic_menu_edit"
+        app:iconSize="35dp"
+        app:iconTint="#000000"
+        app:iconTintMode="src_in"
+        app:layout_anchor="@+id/toolbar2"
+        app:layout_anchorGravity="end|center" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#01FFFFFF"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconSize="40dp"
+        app:iconTint="#000000"
+        app:layout_anchor="@+id/toolbar2"
+        app:layout_anchorGravity="center" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="163dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Workout Log"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#FBFBFB"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_anchor="@+id/scrollView2"
+        app:layout_anchorGravity="start|center" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

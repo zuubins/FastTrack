@@ -1,4 +1,4 @@
-package com.example.fasttrack.tests;
+package com.example.fasttrack;
 
 import android.content.ContentValues;
 import android.content.Context;
