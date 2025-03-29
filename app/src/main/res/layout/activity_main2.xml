@@ -5,4 +5,61 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity2"/>
+    android:layout_gravity="bottom|start|end"
+    tools:context=".MainActivity2">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#D5D3CF"
+        android:longClickable="false"
+        android:minHeight="?attr/actionBarSize"
+        android:nestedScrollingEnabled="false"
+        android:theme="?attr/actionBarTheme"
+        app:layout_anchor="@+id/scrollView2"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#01FFFFFF"
+            android:contentDescription='@string/start_new_workout_text'
+            app:icon="@android:drawable/ic_input_add"
+            app:iconSize="40dp"
+            app:iconTint="#000000" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="#00FFFFFF"
+            android:contentDescription='@string/take_workout_split_quiz'
+            app:icon="@android:drawable/ic_menu_edit"
+            app:iconSize="35dp"
+            app:iconTint="#000000"
+            app:iconTintMode="src_in" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="#009E8F52"
+            android:contentDescription="@string/return_to_home_screen"
+            app:icon="@drawable/home_button_foreground"
+            app:iconSize="40dp"
+            app:iconTint="#000000" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
