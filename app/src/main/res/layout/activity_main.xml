@@ -76,7 +76,6 @@
             app:icon="@drawable/home_button_foreground"
             app:iconSize="40dp"
             app:iconTint="#000000" />
-
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
