@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class SplitQuestionnaire {
     private ArrayList<Question> questions;
     private int[] scores;
+    private String q1FinalAnswer;
+    private String q2FinalAnswer;
+    private String q3FinalAnswer;
+
 
     public SplitQuestionnaire() {
         this.questions = new ArrayList<>();
-        this.scores = new int[5];
+        this.scores = new int[3];
         createQuestions();
 
     }
@@ -59,6 +63,11 @@ public class SplitQuestionnaire {
     public Question getQuestion(int index) {
         Question question = questions.get(index);
         return question;
+    }
+
+    public void setAnswer(Question q, String s) {
+        q.setFinalAnswer(s);
+
     }
 
 
