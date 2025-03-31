@@ -18,7 +18,6 @@
         android:minHeight="?attr/actionBarSize"
         android:nestedScrollingEnabled="false"
         android:theme="?attr/actionBarTheme"
-        app:layout_anchor="@+id/scrollView2"
         app:layout_anchorGravity="bottom|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +68,7 @@
         android:layout_height="99dp"
         android:text="Question"
         android:textAlignment="center"
+        android:textColor="#D5D3CF"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,21 +89,28 @@
 
         <RadioButton
             android:id="@+id/radioButton"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:text="Option1" />
+            android:text="Option1"
+            android:textColor="#D5D3CF"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="76dp"
-            android:text="Option2" />
+            android:text="Option2"
+            android:textColor="#D5D3CF"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:text="Option3" />
+            android:text="Option3"
+            android:textColor="#D5D3CF"
+            android:textSize="20sp" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

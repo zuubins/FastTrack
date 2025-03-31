@@ -47,4 +47,6 @@
     <string name="take_workout_split_quiz">Take Workout Split Quiz</string>
     <string name="return_to_home_screen">Return to Home Screen</string>
     <string name="view_completed_workouts">View Completed Workouts</string>
+    <string name="routine1">Routine1</string>
+    <string name="routine2">Routine2</string>
 </resources>
