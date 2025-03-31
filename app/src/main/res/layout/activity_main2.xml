@@ -67,6 +67,7 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="409dp"
         android:layout_height="665dp"
+        android:background="#5D5C5C"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,13 +81,17 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="#1B1919">
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="138dp"
                     android:layout_height="47dp"
+                    android:singleLine="true"
+                    android:soundEffectsEnabled="false"
                     android:text="ROUTINES"
+                    android:textColor="#D5D3CF"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -101,9 +106,9 @@
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="343dp"
                     android:layout_height="62dp"
-                    android:background="#FF0000"
+                    android:background="#D5D3CF"
                     android:backgroundTint="#D5D3CF"
-                    android:backgroundTintMode="screen"
+                    android:backgroundTintMode="src_over"
                     android:text="Button"
                     android:textColor="#050505"
                     android:textColorLink="#B11212"
