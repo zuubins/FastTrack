@@ -9,20 +9,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     // Database Name and Version
-    private static final String DATABASE_NAME = "fastTrack.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String dbName = "fastTrack.db";
+    private static final int dbVersion = 1;
 
     // Splits Table
-    public static final String TABLE_WORKOUT_SPLITS = "workout_splits";
-    public static final String COLUMN_WORKOUT_SPLIT_ID = "id";
-    public static final String COLUMN_NAME = "name";  // e.g., "Push/Pull/Legs"
+    public static final String splitsTableName = "workout_splits";
+    public static final String columnSplitID = "id";
+    public static final String columnSplitName = "name";
 
     // Routines Table
-    public static final String TABLE_DAILY_ROUTINES = "daily_routines";
-    public static final String COLUMN_DAILY_ROUTINE_ID = "id";
+    public static final String routinesTableName = "daily_routines";
+    public static final String columnRoutineID = "id";
     public static final String COLUMN_SPLIT_ID = "split_id";  // Foreign Key to workout_splits
-    public static final String COLUMN_DAY_OF_WEEK = "day_of_week"; // e.g., "Monday"
-    public static final String COLUMN_ROUTINE_NAME = "routine_name";  // e.g., "Chest Day"
+    public static final String columnDayOfWeek = "day_of_week"; // e.g., "Monday"
+    public static final String columnRoutineName = "routine_name";  // e.g., "Chest Day"
 
     // Movements Table
     public static final String TABLE_MOVEMENTS = "movements";
@@ -40,18 +40,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // SQL to create tables
     private static final String CREATE_WORKOUT_SPLITS_TABLE =
-            "CREATE TABLE " + TABLE_WORKOUT_SPLITS + " (" +
-                    COLUMN_WORKOUT_SPLIT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_NAME + " TEXT);";
+            "CREATE TABLE " + splitsTableName + " (" +
+                    columnSplitID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    columnSplitName + " TEXT);";
 
     private static final String CREATE_DAILY_ROUTINES_TABLE =
-            "CREATE TABLE " + TABLE_DAILY_ROUTINES + " (" +
-                    COLUMN_DAILY_ROUTINE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "CREATE TABLE " + routinesTableName + " (" +
+                    columnRoutineID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_SPLIT_ID + " INTEGER, " +
-                    COLUMN_DAY_OF_WEEK + " TEXT, " +
-                    COLUMN_ROUTINE_NAME + " TEXT, " +
-                    "FOREIGN KEY(" + COLUMN_SPLIT_ID + ") REFERENCES " + TABLE_WORKOUT_SPLITS +
-                    "(" + COLUMN_WORKOUT_SPLIT_ID + "));";
+                    columnDayOfWeek + " TEXT, " +
+                    columnRoutineName + " TEXT, " +
+                    "FOREIGN KEY(" + COLUMN_SPLIT_ID + ") REFERENCES " + splitsTableName +
+                    "(" + columnSplitID + "));";
 
     private static final String CREATE_MOVEMENTS_TABLE =
             "CREATE TABLE " + TABLE_MOVEMENTS + " (" +
@@ -60,20 +60,20 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_SETS + " INTEGER, " +
                     COLUMN_REPS + " INTEGER, " +
                     COLUMN_WEIGHT + " TEXT, " +
-                    "FOREIGN KEY(" + COLUMN_DAILY_ROUTINE_ID + ") REFERENCES " + TABLE_DAILY_ROUTINES +
-                    "(" + COLUMN_DAILY_ROUTINE_ID + "));";
+                    "FOREIGN KEY(" + columnRoutineID + ") REFERENCES " + routinesTableName +
+                    "(" + columnRoutineID + "));";
 
     private static final String CREATE_COMPLETED_WORKOUTS_TABLE =
             "CREATE TABLE " + TABLE_COMPLETED_WORKOUTS + " (" +
                     COLUMN_COMPLETED_WORKOUT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_WORKOUT_SPLIT_ID + " INTEGER, " +
+                    columnSplitID + " INTEGER, " +
                     COLUMN_START_TIME + " INTEGER, " +  // Store timestamp
                     COLUMN_END_TIME + " INTEGER, " +    // Store timestamp
                     COLUMN_DATE + " TEXT, " +           // Store date as text
-                    "FOREIGN KEY(" + COLUMN_WORKOUT_SPLIT_ID + ") REFERENCES " + TABLE_WORKOUT_SPLITS + "(" + COLUMN_WORKOUT_SPLIT_ID + "));";
+                    "FOREIGN KEY(" + columnSplitID + ") REFERENCES " + splitsTableName + "(" + columnSplitID + "));";
 
     public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, dbName, null, dbVersion);
     }
 
     @Override
@@ -86,8 +86,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVEMENTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DAILY_ROUTINES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORKOUT_SPLITS);
+        db.execSQL("DROP TABLE IF EXISTS " + routinesTableName);
+        db.execSQL("DROP TABLE IF EXISTS " + splitsTableName);
         onCreate(db);
     }
 
@@ -95,8 +95,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public long insertWorkoutSplit(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name);
-        return db.insert(TABLE_WORKOUT_SPLITS, null, values);
+        values.put(columnSplitName, name);
+        return db.insert(splitsTableName, null, values);
     }
 
     // Insert a new daily routine for a specific workout split
@@ -104,9 +104,9 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_SPLIT_ID, splitId);
-        values.put(COLUMN_DAY_OF_WEEK, dayOfWeek);
-        values.put(COLUMN_ROUTINE_NAME, routineName);
-        return db.insert(TABLE_DAILY_ROUTINES, null, values);
+        values.put(columnDayOfWeek, dayOfWeek);
+        values.put(columnRoutineName, routineName);
+        return db.insert(routinesTableName, null, values);
     }
 
     // Insert a new movement/exercise for a daily routine
@@ -123,16 +123,16 @@ public class DBHelper extends SQLiteOpenHelper {
     // Retrieve all workout splits
     public Cursor getAllWorkoutSplits() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.query(TABLE_WORKOUT_SPLITS,
-                new String[]{COLUMN_WORKOUT_SPLIT_ID, COLUMN_NAME},
+        return db.query(splitsTableName,
+                new String[]{columnSplitID, columnSplitName},
                 null, null, null, null, null);
     }
 
     // Retrieve all daily routines for a specific split
     public Cursor getDailyRoutinesForSplit(long splitId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.query(TABLE_DAILY_ROUTINES,
-                new String[]{COLUMN_DAILY_ROUTINE_ID, COLUMN_DAY_OF_WEEK, COLUMN_ROUTINE_NAME},
+        return db.query(routinesTableName,
+                new String[]{columnRoutineID, columnDayOfWeek, columnRoutineName},
                 COLUMN_SPLIT_ID + "=?",
                 new String[]{String.valueOf(splitId)}, null, null, null);
     }
@@ -142,7 +142,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.query(TABLE_MOVEMENTS,
                 new String[]{COLUMN_MOVEMENT_ID, COLUMN_MOVEMENT_NAME, COLUMN_SETS, COLUMN_REPS, COLUMN_WEIGHT},
-                COLUMN_DAILY_ROUTINE_ID + "=?",
+                columnRoutineID + "=?",
                 new String[]{String.valueOf(dailyRoutineId)}, null, null, null);
     }
 
@@ -150,8 +150,8 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_SPLIT_ID, splitId);
-        values.put(COLUMN_DAY_OF_WEEK, dayOfWeek);
-        values.put(COLUMN_ROUTINE_NAME, routineName);
-        return db.insert(TABLE_DAILY_ROUTINES, null, values);
+        values.put(columnDayOfWeek, dayOfWeek);
+        values.put(columnRoutineName, routineName);
+        return db.insert(routinesTableName, null, values);
     }
 }

@@ -1,10 +1,13 @@
 package com.example.fasttrack;
 
+import android.widget.TextView;
+
 public class Question {
     private String questionText;
     private String[] options;
     private int[] resultScores; // Each answer gives a different score towards a result
     private String finalAnswer;
+    private TextView questionTV;
 
     public Question(String questionText, String[] options, int[] resultScores) {
         this.questionText = questionText;
