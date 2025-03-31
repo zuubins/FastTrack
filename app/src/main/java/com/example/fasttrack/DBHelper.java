@@ -11,7 +11,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Database information
     private static final String DATABASE_NAME = "workoutDB";
-    private static final int DATABASE_VERSION = 5; // Incremented database version to 5
+    private static final int DATABASE_VERSION = 1;
 
     // Workout Splits Table
     private static final String TABLE_WORKOUT_SPLITS = "workout_splits";
@@ -24,22 +24,22 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_ROUTINES = "routines";
     private static final String COLUMN_TARGET = "target";
     private static final String COLUMN_MOVEMENTS = "movements";
-    private static final String COLUMN_SPLIT_ID = "split_id"; // Foreign key to workout_splits
+    private static final String COLUMN_SPLIT_ID = "split_id"; // FK to workout_splits
 
     // Movements Table
     private static final String TABLE_MOVEMENTS = "movements";
     private static final String COLUMN_MOVEMENT_NAME = "name";
     private static final String COLUMN_TARGET_AREA = "target_area";
     private static final String COLUMN_MOVEMENT_FOCUS = "movement_focus";
-    private static final String COLUMN_ROUTINE_ID = "routine_id"; // Foreign key to routines
+    private static final String COLUMN_ROUTINE_ID = "routine_id"; // FK to routines
 
     // Completed Routines Table
     private static final String TABLE_COMPLETED_ROUTINES = "completed_routines";
     private static final String COLUMN_DATE = "date";
     private static final String COLUMN_WEIGHT_PER_SET = "weight_per_set";
     private static final String COLUMN_REPS_PER_SET = "reps_per_set";
-    private static final String COLUMN_START_TIME = "start_time";  // New column for start time
-    private static final String COLUMN_END_TIME = "end_time";  // New column for end time
+    private static final String COLUMN_START_TIME = "start_time";
+    private static final String COLUMN_END_TIME = "end_time";
 
     // Create table SQL query for workout_splits
     private static final String CREATE_TABLE_WORKOUT_SPLITS = "CREATE TABLE "
@@ -98,6 +98,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ROUTINES);
         db.execSQL(CREATE_TABLE_MOVEMENTS);
         db.execSQL(CREATE_TABLE_COMPLETED_ROUTINES);
+        populateSplitsTable();
+        populateRoutinesTable();
+        populateMovementsTable();
     }
 
     // Called when the database version is incremented (e.g. during an app upgrade)
@@ -121,7 +124,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // Insert the row and return the ID of the new record
         long id = db.insert(TABLE_WORKOUT_SPLITS, null, values);
-        db.close(); // Close the database connection
+        db.close();
         return id;
     }
 
@@ -140,7 +143,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    // Insert a new movement into the database
+
     public long insertMovement(String name, String targetArea, String movementFocus, long routineId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -155,7 +158,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    // Insert a completed routine into the database with start and end times
     public long insertCompletedRoutine(long routineId, String date, String weightPerSet, String repsPerSet, String startTime, String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -166,28 +168,24 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_START_TIME, startTime);  // Insert start time
         values.put(COLUMN_END_TIME, endTime);    // Insert end time
 
-        // Insert the row and return the ID of the new record
+
         long id = db.insert(TABLE_COMPLETED_ROUTINES, null, values);
         db.close(); // Close the database connection
         return id;
     }
 
-    // Fetch all completed routines
     public Cursor getAllCompletedRoutines() {
         SQLiteDatabase db = this.getReadableDatabase();
         // Query to get all records from the completed_routines table
         return db.query(TABLE_COMPLETED_ROUTINES, null, null, null, null, null, null);
     }
 
-    // Fetch completed routines for a specific routine
     public Cursor getCompletedRoutinesByRoutineId(int routineId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = COLUMN_ROUTINE_ID + " = ?";
         String[] selectionArgs = { String.valueOf(routineId) };
         return db.query(TABLE_COMPLETED_ROUTINES, null, selection, selectionArgs, null, null, null);
     }
-
-    // Update a completed routine entry
     public int updateCompletedRoutine(int id, long routineId, String date, String weightPerSet, String repsPerSet, String startTime, String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -235,6 +233,28 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     private void populateMovementsTable() {
-        
+        insertMovement("Barbell Bench Press", "Chest", "STR", 1);
+        insertMovement("Chest Fly", "Chest", "HYP", 1);
+        insertMovement("Incline Dumbbell Press", "Chest", "STR", 1);
+        insertMovement("Shoulder Press", "Shoulders", "STR", 1);
+        insertMovement("Skullcrusher", "Triceps", "STR", 1);
+        insertMovement("Cable Pushdown", "Triceps", "HYP", 1);
+
+        insertMovement("Lat Pulldown", "Back", "HYP", 2);
+        insertMovement("Seated Row", "Back", "HYP", 2);
+        insertMovement("Pull-Ups", "Back", "STR", 2);
+        insertMovement("Preacher Curl", "Biceps", "STR", 2);
+        insertMovement("Barbell Bicep Curl", "Biceps", "STR", 2);
+
+        insertMovement("Barbell Squat", "Legs", "STR", 3);
+        insertMovement("Leg Extension", "Legs", "HYP", 3);
+        insertMovement("RDL", "Legs", "STR", 3);
+        insertMovement("Hamstring Curl", "Legs", "HYP", 3);
+        insertMovement("Calf Raise", "Legs", "HYP", 3);
+        insertMovement("Adduction", "Legs", "HYP", 3);
+
+        insertMovement("Hack Squat", "Legs", "HYP", 3);
+
+
     }
 }
