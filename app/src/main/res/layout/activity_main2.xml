@@ -109,7 +109,6 @@
                     android:backgroundTintMode="add"
                     android:text="@string/routine1"
                     android:textColor="#050505"
-                    android:textColorLink="#B11212"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

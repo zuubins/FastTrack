@@ -69,4 +69,8 @@ public class TrackingRoutine {
     public LocalTime getEndTime() {
         return endTime;
     }
+
+    public Routine getTrackedRoutine() {
+        return trackedRoutine;
+    }
 }

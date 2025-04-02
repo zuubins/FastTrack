@@ -40,7 +40,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_START_TIME = "start_time";
     private static final String COLUMN_END_TIME = "end_time";
 
-    // Create table SQL query for workout_splits
+
+    // Constructor
+    public DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
     private static final String CREATE_TABLE_WORKOUT_SPLITS = "CREATE TABLE "
             + TABLE_WORKOUT_SPLITS + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -71,7 +76,6 @@ public class DBHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY(" + COLUMN_ROUTINE_ID + ") REFERENCES " + TABLE_ROUTINES + "(" + COLUMN_ID + ")"
             + ");";
 
-    // Create table SQL query for completed_routines
     private static final String CREATE_TABLE_COMPLETED_ROUTINES = "CREATE TABLE "
             + TABLE_COMPLETED_ROUTINES + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -79,15 +83,10 @@ public class DBHelper extends SQLiteOpenHelper {
             + COLUMN_DATE + " TEXT, "
             + COLUMN_WEIGHT_PER_SET + " TEXT, "
             + COLUMN_REPS_PER_SET + " TEXT, "
-            + COLUMN_START_TIME + " TEXT, "  // New column for start time
-            + COLUMN_END_TIME + " TEXT, "   // New column for end time
+            + COLUMN_START_TIME + " TEXT, "
+            + COLUMN_END_TIME + " TEXT, "
             + "FOREIGN KEY(" + COLUMN_ROUTINE_ID + ") REFERENCES " + TABLE_ROUTINES + "(" + COLUMN_ID + ")"
             + ");";
-
-    // Constructor
-    public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
 
     // Called when the database is created for the first time
     @Override
@@ -110,25 +109,21 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVEMENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTINES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORKOUT_SPLITS);
-        onCreate(db);  // Recreate the tables
+        onCreate(db);
     }
 
-    // Insert a new workout split into the database
-    public long insertWorkoutSplit(String name, int days, String routines) {
+    public void insertWorkoutSplit(String name, int days, String routines) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, name);
         values.put(COLUMN_DAYS, days);
         values.put(COLUMN_ROUTINES, routines);
 
-        // Insert the row and return the ID of the new record
-        long id = db.insert(TABLE_WORKOUT_SPLITS, null, values);
+        db.insert(TABLE_WORKOUT_SPLITS, null, values);
         db.close();
-        return id;
     }
 
-    // Insert a new routine into the database
-    public long insertRoutine(String name, String target, String movements, long splitId) {
+    public void insertRoutine(String name, String target, String movements, long splitId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
@@ -136,14 +131,12 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_MOVEMENTS, movements);
         values.put(COLUMN_SPLIT_ID, splitId); // Foreign key reference to workout split
 
-        // Insert the row and return the ID of the new record
-        long id = db.insert(TABLE_ROUTINES, null, values);
-        db.close(); // Close the database connection
-        return id;
+        db.insert(TABLE_ROUTINES, null, values);
+        db.close();
     }
 
 
-    public long insertMovement(String name, String targetArea, String movementFocus, long routineId) {
+    public void insertMovement(String name, String targetArea, String movementFocus, long routineId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_MOVEMENT_NAME, name);
@@ -151,31 +144,28 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_MOVEMENT_FOCUS, movementFocus);
         values.put(COLUMN_ROUTINE_ID, routineId); // Foreign key reference to routine
 
-        // Insert the row and return the ID of the new record
-        long id = db.insert(TABLE_MOVEMENTS, null, values);
-        db.close(); // Close the database connection
-        return id;
+        db.insert(TABLE_MOVEMENTS, null, values);
+        db.close();
     }
 
-    public long insertCompletedRoutine(long routineId, String date, String weightPerSet, String repsPerSet, String startTime, String endTime) {
+    public void insertCompletedRoutine(long routineId, String date, String weightPerSet, String repsPerSet, String startTime, String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ROUTINE_ID, routineId);  // Foreign key reference to routine
+        values.put(COLUMN_ROUTINE_ID, routineId);
         values.put(COLUMN_DATE, date);
         values.put(COLUMN_WEIGHT_PER_SET, weightPerSet);
         values.put(COLUMN_REPS_PER_SET, repsPerSet);
-        values.put(COLUMN_START_TIME, startTime);  // Insert start time
-        values.put(COLUMN_END_TIME, endTime);    // Insert end time
+        values.put(COLUMN_START_TIME, startTime);
+        values.put(COLUMN_END_TIME, endTime);
 
 
-        long id = db.insert(TABLE_COMPLETED_ROUTINES, null, values);
-        db.close(); // Close the database connection
-        return id;
+        db.insert(TABLE_COMPLETED_ROUTINES, null, values);
+        db.close();
     }
 
     public Cursor getAllCompletedRoutines() {
         SQLiteDatabase db = this.getReadableDatabase();
-        // Query to get all records from the completed_routines table
+
         return db.query(TABLE_COMPLETED_ROUTINES, null, null, null, null, null, null);
     }
 
@@ -192,8 +182,8 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_DATE, date);
         values.put(COLUMN_WEIGHT_PER_SET, weightPerSet);
         values.put(COLUMN_REPS_PER_SET, repsPerSet);
-        values.put(COLUMN_START_TIME, startTime);  // Update start time
-        values.put(COLUMN_END_TIME, endTime);    // Update end time
+        values.put(COLUMN_START_TIME, startTime);
+        values.put(COLUMN_END_TIME, endTime);
 
         String whereClause = COLUMN_ID + " = ?";
         String[] whereArgs = { String.valueOf(id) };
@@ -237,9 +227,9 @@ public class DBHelper extends SQLiteOpenHelper {
         insertMovement("Incline Dumbbell Press", "Chest", "STR", 1);
         insertMovement("Shoulder Press", "Shoulders", "STR", 1);
         insertMovement("Skullcrusher", "Triceps", "STR", 1);
-        insertMovement("Cable Pushdown", "Triceps", "HYP", 1);
+        insertMovement("Cable Push-down", "Triceps", "HYP", 1);
 
-        insertMovement("Lat Pulldown", "Back", "HYP", 2);
+        insertMovement("Lat Pull-down", "Back", "HYP", 2);
         insertMovement("Seated Row", "Back", "HYP", 2);
         insertMovement("Pull-Ups", "Back", "STR", 2);
         insertMovement("Preacher Curl", "Biceps", "STR", 2);

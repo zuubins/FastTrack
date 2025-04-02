@@ -1,6 +1,6 @@
 package com.example.fasttrack;
 
-public class Movement extends Object {
+public class Movement {
 
     public int movementSets;
     private String movementName;
@@ -53,5 +53,21 @@ public class Movement extends Object {
 
     public void setReps(int index1, int index2, int reps) {
         weightRepsArr[index1][index2] = reps;
+    }
+
+    public String getMovementType() {
+        return movementType;
+    }
+
+    public void setMovementType(String movementType) {
+        this.movementType = movementType;
+    }
+
+    public String getMovementTarget() {
+        return movementTarget;
+    }
+
+    public void setMovementTarget(String movementTarget) {
+        this.movementTarget = movementTarget;
     }
 }

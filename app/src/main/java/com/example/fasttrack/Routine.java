@@ -2,7 +2,7 @@ package com.example.fasttrack;
 
 import java.util.ArrayList;
 
-public class Routine extends ArrayList<Movement> {
+public class Routine {
     private String routineName;
     private String targetGroup;
     private String routineType;

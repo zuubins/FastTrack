@@ -49,4 +49,5 @@
     <string name="view_completed_workouts">View Completed Workouts</string>
     <string name="routine1">Routine1</string>
     <string name="routine2">Routine2</string>
+    <string name="workout_log">Workout Log</string>
 </resources>

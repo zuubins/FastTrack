@@ -4,8 +4,9 @@ public class QuestionnaireSolver {
     private static int splitDays;
     private static int splitGoal;
     private static int lifterExp;
-    
+
     public QuestionnaireSolver() {
+
 
     }
     public static String solve(SplitQuestionnaire quest) {
